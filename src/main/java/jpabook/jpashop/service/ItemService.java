@@ -1,6 +1,5 @@
 package jpabook.jpashop.service;
 
-import jakarta.persistence.EntityManager;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;

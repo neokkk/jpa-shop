@@ -19,7 +19,7 @@ class MemberServiceTest {
   @Autowired MemberRepository memberRepository;
 
   @Test
-  @DisplayName("정상적인 회원 가입")
+  @DisplayName("정상적으로 회원 가입이 가능하다.")
   void joinWithoutDuplicate() throws Exception {
     Member member = new Member();
     member.setName("A");
@@ -30,7 +30,7 @@ class MemberServiceTest {
   }
 
   @Test
-  @DisplayName("중복된 이름으로 회원 가입")
+  @DisplayName("중복된 이름으로 회원 가입이 불가능하다.")
   void joinWithDuplicate() throws Exception {
     Member member1 = new Member();
     member1.setName("A");
