@@ -8,17 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+@Transactional
 class MemberRepositoryTest {
     @Autowired MemberRepository memberRepository;
 
     @Test
-    @Transactional
     void testMember() {
         Member member = new Member();
         member.setName("A");
 
         Long memberId = memberRepository.save(member);
-        Member findMember = memberRepository.find(memberId);
+        Member findMember = memberRepository.findOne(memberId);
 
         Assertions.assertThat(findMember).isEqualTo(member); // JPA 엔티티 동일성 보장
     }
