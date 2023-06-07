@@ -1,9 +1,6 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.Delivery;
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
@@ -11,6 +8,8 @@ import jpabook.jpashop.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -39,6 +38,14 @@ public class OrderService {
     Order order = Order.createOrder(member, delivery, orderItem);
     orderRepository.save(order);
     return order.getId();
+  }
+
+  public List<Order> findOrders() {
+    return orderRepository.findAll();
+  }
+
+  public List<Order> findOrders(OrderSearch orderSearch) {
+    return orderRepository.search(orderSearch);
   }
 
   public Order getOrder(Long id) {

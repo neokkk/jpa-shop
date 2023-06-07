@@ -17,6 +17,12 @@ public class OrderRepository {
     entityManager.persist(order);
   }
 
+  public List<Order> findAll() {
+    return entityManager.createQuery("select o from Order o", Order.class)
+        .setMaxResults(1000)
+        .getResultList();
+  }
+
   public Order findOne(Long id) {
     return entityManager.find(Order.class, id);
   }

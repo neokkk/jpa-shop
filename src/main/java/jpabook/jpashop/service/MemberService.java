@@ -13,21 +13,21 @@ import java.util.List;
 public class MemberService {
   @Autowired private MemberRepository memberRepository;
 
-  public Long join(Member member) throws Exception {
+  public Long join(Member member) {
     validateDuplicateMember(member);
     memberRepository.save(member);
     return member.getId();
   }
 
-  public List<Member> getAllMembers() {
+  public List<Member> findMembers() {
     return memberRepository.findAll();
   }
 
-  public Member getMember(Long memberId) {
+  public Member findMember(Long memberId) {
     return memberRepository.findOne(memberId);
   }
 
-  private void validateDuplicateMember(Member member) throws Exception {
+  private void validateDuplicateMember(Member member) {
     List<Member> findMembers = memberRepository.findByName(member.getName());
     if (!findMembers.isEmpty()) {
       throw new IllegalStateException("이미 존재하는 회원입니다.");
