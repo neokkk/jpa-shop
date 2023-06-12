@@ -1,5 +1,7 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.item.Item;
 import lombok.Getter;
@@ -21,13 +23,16 @@ public class Category {
     @JoinTable(name = "category_item",
             joinColumns = @JoinColumn(name = "category_id"), // 중간 테이블에 있는 category_id
             inverseJoinColumns = @JoinColumn(name = "item_id")) // 중간 테이블에 있는 item_id
+    @JsonBackReference
     private List<Item> items = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
+    @JsonIgnore
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
+    @JsonIgnore
     private List<Category> child = new ArrayList<>();
 
     public void setItem(Item item) {
