@@ -2,10 +2,12 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.dto.OrderSearchDto;
 import jpabook.jpashop.repository.ItemRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,12 +42,8 @@ public class OrderService {
     return order.getId();
   }
 
-  public List<Order> findOrders() {
-    return orderRepository.findAll();
-  }
-
-  public List<Order> findOrders(OrderSearch orderSearch) {
-    return orderRepository.search(orderSearch);
+  public List<Order> findOrders(OrderSearchDto orderSearch, Pageable pageable) {
+    return orderRepository.search(orderSearch, pageable);
   }
 
   public Order getOrder(Long id) {

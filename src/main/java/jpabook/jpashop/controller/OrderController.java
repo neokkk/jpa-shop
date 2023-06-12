@@ -2,12 +2,14 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderSearch;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.dto.OrderSearchDto;
 import jpabook.jpashop.service.ItemService;
 import jpabook.jpashop.service.MemberService;
 import jpabook.jpashop.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +24,11 @@ public class OrderController {
   private final ItemService itemService;
 
   @GetMapping("/orders")
-  public String list(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
-    List<Order> orders = orderService.findOrders(orderSearch);
+  public String list(
+      @ModelAttribute("orderSearch") OrderSearchDto orderSearch,
+      Model model,
+      @PageableDefault(size = 10) Pageable pageable) {
+    List<Order> orders = orderService.findOrders(orderSearch, pageable);
     model.addAttribute("orders", orders);
     return "orders/orderList";
   }
